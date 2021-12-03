@@ -2,6 +2,11 @@
 node_modules
 /dist
 
+.browserlistrc
+.eslintrc.js
+package.json
+package-lock.json
+
 
 # local env files
 .env.local
