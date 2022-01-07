@@ -1,5 +1,7 @@
+//import Backendless from "backendless";
 import { createRouter, createWebHistory } from "vue-router";
 //import Home from "../views/Home.vue";
+//import store from "../store";
 import Backendless from "@/plugins/backendless.js";
 
 const routes = [
@@ -9,17 +11,8 @@ const routes = [
     component: Home,
   },*/
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
-  },
-  {
     path: "/",
-    name: "Login",
+    name: "login",
     meta: {
       guest: true,
     },
@@ -42,8 +35,8 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Admin.vue"),
   },
   {
-    path: "/account-executive",
-    name: "account-executive",
+    path: "/management",
+    name: "management",
     meta: {
       auth: true,
     },
@@ -51,60 +44,74 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/AccountExecutive.vue"),
+      import(/* webpackChunkName: "about" */ "../views/Management.vue"),
+  },
+  {
+    path: "/dmp",
+    name: "dmp",
+    meta: {
+      auth: true,
+    },
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ "../views/Dmp.vue"),
   },
 ];
-
-// Guard routes based on authentification
-router.beforeEach((to, from, next) => {
-  Backendless.UserService.getCurrentUser().then((user) => {
-    if (user) {
-      console.log(user);
-
-      if (user["role"] === "dealership") {
-        if (to.path !== "/dealership")
-          return next({
-            path: "/dealership",
-            meta: {
-              auth: true,
-            },
-          });
-      } else if (user["role"] === "admin") {
-        if (to.path !== "/admin")
-          return next({
-            path: "/admin",
-            meta: {
-              auth: true,
-            },
-          });
-      } else if (user["role"] === "ae") {
-        if (to.path !== "/account-executive")
-          return next({
-            path: "/account-executive",
-            meta: {
-              auth: true,
-            },
-          });
-      }
-    } else {
-      if (to.matched.some((record) => record.meta.auth)) {
-        next({
-          path: "/",
-          query: {
-            redirect: to.fullPath,
-          },
-        });
-      } else {
-        next();
-      }
-    }
-  });
-  next();
-});
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+/*router.beforeEach((to, from, next) => {
+  //console.log("global beforeEach");
+  const requiresAuth = to.matched.some((record) => record.meta.auth);
+
+  Backendless.UserService.getCurrentUser().then((user) => {
+    if (!user) {
+      next("/");
+    } else if (requiresAuth && to.path !== "/" && user["role"] === "dmp") {
+        next("/dmp");
+     
+    } else if (requiresAuth && to.path !== "/" && user["role"] === "management") {
+        next("/management");
+
+    } else if (requiresAuth && to.path !== "/" && user["role"] === "admin") {
+        next("/admin");
+    } else {
+        next();
+    }
+  });
+});*/
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record.meta.auth);
+  //console.log("global beforeEach");
+  //const currentUser = Backendless.UserService.getCurrentUser();
+  //console.log(currentUser["role"]);
+
+    Backendless.UserService.getCurrentUser().then((user) => {
+
+        if (requiresAuth && !user) {
+            next("/");
+            console.log("hello");
+        } 
+        else {
+
+            next();
+            console.log("around");
+        }
+
+    /*if (user && user["role"] === "dmp") {
+      next("/dmp");
+      console.log(user["role"]);
+    
+    }*/ 
+
+    });
+    // end backendless
+});
+// end router guard
 
 export default router;

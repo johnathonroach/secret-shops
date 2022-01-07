@@ -1,58 +1,63 @@
 <template>
   <div class="about">
-    <h1>This is an login page</h1>
+    <form class="login" @submit.prevent="Login">
+      <label>Email</label>
+      <input required v-model="email" type="email" placeholder="Email" />
+      <label>Password</label>
+      <input
+        required
+        v-model="password"
+        type="password"
+        placeholder="Password"
+      />
+      <button type="submit">Login</button>
+    </form>
   </div>
 </template>
 
 <script>
 import Backendless from "@/plugins/backendless.js";
+//import { useRouter } from "vue-router";
+import { ref } from "vue";
+//import { useRouter } from "vue-router";
 
 export default {
-  data() {
+  setup() {
+    //const router = useRouter();
+    //const router = useRouter();
+
+    const email = ref(" ");
+    const password = ref("");
+    const Login = () => {
+      const stayLoggedIn = true;
+      console.log(email);
+      Backendless.UserService.login(
+        email.value,
+        password.value,
+        stayLoggedIn
+      ).then((user) => {
+        console.log(user);
+        /*if (user["role"] === "dmp") {
+          router.push({ path: "/dmp" });
+        } else if (user["role"] === "admin") {
+          router.push({ path: "/admin" });
+        } else if (user["role"] === "management") {
+          router.push({ path: "/management" });
+        }*/
+
+        //router.push("/");
+      });
+      // eslint-disable-next-line no-unused-vars
+    };
     return {
-      email: "",
-      password: "",
-      errors: [],
+      email,
+      password,
+      Login,
     };
   },
 
   created() {},
 
-  methods: {
-    async loginButtonPressed() {
-      var stayLoggedIn = true;
-      Backendless.UserService.login(this.email, this.password, stayLoggedIn)
-        .then((user) => {
-          console.log(user.role);
-          console.log(user);
-          console.log(user["user-token"]);
-          //localStorage.setItem('LoggedUser',user['role']);
-          localStorage.setItem("LoggedUser", true);
-
-          Backendless.UserService.getCurrentUser()
-            .then((user) => {
-              if (user["role"] === "dealership") {
-                this.$router.push({ path: "/dealership" });
-              } else if (user["role"] === "admin") {
-                this.$router.push({ path: "/admin" });
-              } else if (user["role"] === "account-executive") {
-                this.$router.push({ path: "/account-executive" });
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        })
-        .catch((error) => {
-          this.errors.push(error.message);
-          console.log(error);
-        });
-
-      /*if (stayLoggedIn === true) {
-                    var userObjectId = Backendless.LocalCache.get("current-user-id")
-                    console.log(userObjectId);
-                }*/
-    },
-  },
+  methods: {},
 };
 </script>
