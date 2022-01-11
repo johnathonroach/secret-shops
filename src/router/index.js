@@ -91,26 +91,22 @@ router.beforeEach((to, from, next) => {
   //const currentUser = Backendless.UserService.getCurrentUser();
   //console.log(currentUser["role"]);
 
-    Backendless.UserService.getCurrentUser().then((user) => {
-
-        if (requiresAuth && !user) {
-            next("/");
-            console.log("hello");
-        } 
-        else {
-
-            next();
-            console.log("around");
-        }
+  Backendless.UserService.getCurrentUser().then((user) => {
+    if (requiresAuth && !user) {
+      next("/");
+      console.log("hello");
+    } else {
+      next();
+      console.log("around");
+    }
 
     /*if (user && user["role"] === "dmp") {
       next("/dmp");
       console.log(user["role"]);
     
-    }*/ 
-
-    });
-    // end backendless
+    }*/
+  });
+  // end backendless
 });
 // end router guard
 

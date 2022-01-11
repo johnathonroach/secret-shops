@@ -1,6 +1,19 @@
 <template>
-  <div class="about">
-    <form class="login" @submit.prevent="Login">
+    <div class="login">
+        <ui-form nowrap item-margin-bottom="16" label-width="80">
+            <template #default="{ actionClass }">
+                <ui-form-field>
+                    <label class="required">Input:</label>
+                    <ui-textfield></ui-textfield>
+                </ui-form-field>
+                <ui-form-field :class="actionClass">
+                    <ui-button raised>Submit</ui-button>
+                </ui-form-field>
+            </template>
+        </ui-form>
+    
+    
+    <!--<form class="login" @submit.prevent="Login">
       <label>Email</label>
       <input required v-model="email" type="email" placeholder="Email" />
       <label>Password</label>
@@ -11,7 +24,12 @@
         placeholder="Password"
       />
       <button type="submit">Login</button>
-    </form>
+    </form>-->
+  
+  
+  
+  
+  
   </div>
 </template>
 
