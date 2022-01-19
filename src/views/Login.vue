@@ -42,13 +42,13 @@ export default {
     const Login = () => {
       const stayLoggedIn = true;
       console.log(email);
-      console.log(email.value)
+      console.log(email.value);
       Backendless.UserService.login(email.value, password.value, stayLoggedIn)
         .then((user) => {
           console.log(user);
           if (user["role"] === "dmp") {
             router.push({ path: "/inboxes" });
-            } 
+          }
         })
         .catch((error) => {
           console.log(error);

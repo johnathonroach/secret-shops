@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-      <h1>Hello</h1>
+    <h1>Hello</h1>
   </div>
 </template>
 
@@ -9,8 +9,7 @@
 
 export default {
   name: "Header",
-  props: {
-  },
+  props: {},
 };
 </script>
 

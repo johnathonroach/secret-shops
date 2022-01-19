@@ -8,10 +8,8 @@ import { onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 import Backendless from "@/plugins/backendless.js";
 
-
 export default {
-    components: {
-    },
+  components: {},
   setup() {
     const router = useRouter();
     //const route = useRoute();
@@ -27,6 +25,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/main.scss";
+
 #app {
   font-family: Helvetica, Arial, sans-serif;
   color: #2c3e50;
