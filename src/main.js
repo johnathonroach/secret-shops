@@ -6,6 +6,11 @@ import BalmUI from "balm-ui"; // Official Google Material Components
 import BalmUIPlus from "balm-ui-plus"; // BalmJS Team Material Components
 import "balm-ui-css";
 
+import { makeServer } from "./server"
+
+if (process.env.NODE_ENV === "development") {
+  makeServer()
+}
 import Backendless from "backendless";
 import "./assets/scss/main.scss";
 

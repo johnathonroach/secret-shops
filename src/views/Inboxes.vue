@@ -17,57 +17,30 @@
     </div>
 
     <div id="app-body">
-      <ui-grid class="demo-grid">
-        <ui-grid-cell
-          id="addresses"
-          class="demo-cell"
-          :columns="{ default: 3, tablet: 8 }"
-        >
-          <h2>Email Addresses</h2>
-        </ui-grid-cell>
-        <ui-grid-cell
-          id="subjects"
-          class="demo-cell"
-          :columns="{ default: 3, tablet: 6 }"
-        >
-          <h2>Email Subjects</h2>
-        </ui-grid-cell>
-        <ui-grid-cell
-          id="previews"
-          class="demo-cell"
-          :columns="{ default: 6, phone: 4 }"
-        >
-          <div class="actions">
-            <ui-button outlined>HTML to Image</ui-button>
-          </div>
-
-          <!-- preview -->
-          <div class="preview">
-            <div class="preview-header"></div>
-            <div class="preview-body"></div>
-          </div>
-          <!-- preview -->
-        </ui-grid-cell>
-      </ui-grid>
+        <Messages />
     </div>
   </section>
 </template>
 
 <script>
 //import Backendless from "@/plugins/backendless.js";
+import Messages from "@/components/Messages.vue";
 
 export default {
-  /*data() {
-        return {
-            name: null,
-            email: null,
-
-        }
-    },*/
+  components: {
+    Messages,
+  },
+  data() {
+    return {
+      name: null,
+      email: null,
+    };
+  },
   setup() {
     return {};
   },
-  created() {},
+  created() {
+  },
 };
 </script>
 
@@ -93,11 +66,21 @@ export default {
       & h3 {
         font-size: 0.9rem;
       }
+
+      .mdc-deprecated-list-item--activated {
+        background-color: $teal-300;
+      }
     }
   }
 
   & .mdc-layout-grid {
     padding-top: 0;
+
+    & .mdc-layout-grid__cell {
+      margin-left: 0;
+      margin-right: 0;
+      padding-top: 0;
+    }
   }
 
   & #app-body {
@@ -114,6 +97,30 @@ export default {
   & #subjects {
     border-right: 1px solid #e0e0e0;
     height: 100vh;
+    padding: 20px 0 0 0;
+
+    & .subject {
+      padding: 10px 0;
+      //border-bottom: 1px solid #e0e0e0;
+
+      &:first-of-type {
+        padding-top: 0;
+      }
+
+      &:first-of-type {
+        padding-bottom: 0;
+      }
+
+      & h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+      }
+
+      & p {
+        font-size: 0.7rem;
+        margin-top: 0;
+      }
+    }
   }
   & #previews {
     display: flex;
@@ -131,6 +138,28 @@ export default {
       & button {
         background: $white;
         color: $teal-300;
+      }
+    }
+  }
+
+  & .preview {
+    & .preview-header {
+      margin: 20px 0 0 0;
+      color: $white;
+      background: $teal-300;
+      padding: 10px;
+      font-size: 0.9rem;
+
+      & ul {
+        list-style: none;
+
+        & li {
+          padding: 5px 0;
+
+          & span {
+            font-weight: bold;
+          }
+        }
       }
     }
   }

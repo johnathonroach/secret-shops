@@ -1,6 +1,6 @@
 <template>
   <div id="login">
-    <ui-card outlined class="login-card">
+    <ui-card outlined class="login-card" v-shadow="6">
       <div :class="[$tt('subtitle2'), 'login-card-heading']">
         Please Login to Continue
       </div>
@@ -47,6 +47,9 @@ export default {
         .then((user) => {
           console.log(user);
           if (user["role"] === "dmp") {
+            router.push({ path: "/inboxes" });
+          }
+          else if (user["role"] === "admin") {
             router.push({ path: "/inboxes" });
           }
         })
