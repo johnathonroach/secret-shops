@@ -8,16 +8,16 @@
         </ui-drawer-header>
         <ui-drawer-content>
           <ui-nav>
-            <ui-nav-item active href="javascript:void(0)">Home</ui-nav-item>
-            <ui-nav-item href="/create">Create Email Address</ui-nav-item>
-            <ui-nav-item href="view">View Inbox</ui-nav-item>
+            <ui-nav-item href="#" active @click="toggleMessages">View Inbox</ui-nav-item>
+            <ui-nav-item href="#" @click="toggleCreate">Create Email Address</ui-nav-item>
           </ui-nav>
         </ui-drawer-content>
       </ui-drawer>
     </div>
 
     <div id="app-body">
-        <Messages />
+        <Create  v-if="showCreate"/>
+        <Messages  v-if="showMessages"/>
     </div>
   </section>
 </template>
@@ -25,19 +25,33 @@
 <script>
 //import Backendless from "@/plugins/backendless.js";
 import Messages from "@/components/Messages.vue";
+import Create from "@/components/Create.vue";
 
 export default {
   components: {
+    Create,
     Messages,
   },
   data() {
     return {
       name: null,
       email: null,
+      showCreate: false,
+      showMessages: true,
     };
   },
   setup() {
     return {};
+  },
+  methods: {
+      toggleCreate () {
+        this.showCreate = !this.showCreate;
+        this.showMessages = !this.showMessages;
+      },
+        toggleMessages () {
+            this.showMessages = !this.showMessages;
+        this.showCreate = !this.showCreate;
+        },
   },
   created() {
   },

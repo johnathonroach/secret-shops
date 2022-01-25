@@ -1,6 +1,9 @@
 // Import Bulma's core
 //@use 'fortawesome/fontawesome-pro/scss/font-awesome';
+@use '@material/theme'as theme-variables with ($primary: #ff00ff,
+    $secondary: #018786);
 
+//@use 'balm-ui/dist/balm-ui';
 
 //* default colors
 $white: #FFFFFF;

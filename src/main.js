@@ -20,5 +20,6 @@ createApp(App)
   .use(router)
   .use(BalmUI)
   .use(BalmUIPlus)
+//  .use(require('vue-faker'))
   .use(Backendless)
   .mount("#app");
