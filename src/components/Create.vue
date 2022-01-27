@@ -1,22 +1,32 @@
 <template>
   <div>
-        <h3>Create An Address</h3>
-      <h3>Email: {{ generatedEmail }}</h3>
-
+    <h3>Create An Address</h3>
+    <h3>Email: {{ generatedEmail }}</h3>
   </div>
 </template>
 
 <script>
+//import { uniqueNamesGenerator, Config, names } from "unique-names-generator";
+import faker from '@faker-js/faker';
 
 export default {
   name: "Create",
 
   data() {
-    return {
-    };
+    return {};
   },
-  created() {},
+  created() {
+  },
+  mounted() {
+        const firstName = faker.name.firstName(); // Rowan Nikolaus
+        const lastName = faker.name.lastName(); // Rowan Nikolaus
+        const convertedLowerName = firstName.toLowerCase() + lastName.toLowerCase();
+        console.log(convertedLowerName);
+
+  },
   methods: {
+ 
+
   },
 };
 </script>
